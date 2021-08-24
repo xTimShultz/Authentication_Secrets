@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require ("ejs");
@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String
 });
+
+const secret = "Thisisoursecretkey.";
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); // Must be added to schema before model instantiated
 
 const User = new mongoose.model("User", userSchema);
 
