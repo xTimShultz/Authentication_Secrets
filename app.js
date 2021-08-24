@@ -8,6 +8,8 @@ const encrypt = require("mongoose-encryption");
 
 const app = express();
 
+console.log(process.env.API_KEY);
+
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -19,8 +21,7 @@ const userSchema = new mongoose.Schema({
     password: String
 });
 
-const secret = "Thisisoursecretkey.";
-userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); // Must be added to schema before model instantiated
+userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] }); 
 
 const User = new mongoose.model("User", userSchema);
 
