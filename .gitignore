@@ -1,3 +1,6 @@
+# Keys for https://
+*.pem
+
 # Logs
 logs
 *.log
